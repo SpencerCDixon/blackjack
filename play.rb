@@ -5,9 +5,18 @@ deck = Deck.new
 player = Hand.new(deck, "Player")
 dealer = Hand.new(deck, "Dealer")
 
-player.deal_player_hand
+player.deal_hand
 puts
-dealer.deal_dealer_hand
+player.hit?
+puts
+player.show_total
 
+puts "-------------"
+puts "Dealer's Turn"
+puts "-------------"
 
-binding.pry
+dealer.deal_hand
+puts
+
+dealer.auto_turn
+dealer.who_wins?(player)
