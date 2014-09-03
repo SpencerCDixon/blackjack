@@ -16,9 +16,9 @@ class Hand
   end
 
   def <=>(other_hand)
-    if self.hand_total < other_hand.hand_total
+    if self.score(pretty_cards) < other_hand.score(pretty_cards)
       -1
-    elsif self.hand_total > other_hand.hand_total
+    elsif self.score(pretty_cards) > other_hand.score(pretty_cards)
       1
     else
       0
@@ -34,14 +34,8 @@ class Hand
     check_total(score(pretty_cards))
   end
 
-  def hand_total
-    total = 0
-    cards.each {|card| total += card.value}
-    total
-  end
-
   def show_total
-    puts "Total: #{hand_total}"
+    puts "Total: #{score(pretty_cards)}"
   end
 
   def check_total(total)
@@ -50,6 +44,7 @@ class Hand
       exit
     elsif total > 21
       puts "You BUST. Dealer wins :( "
+      exit
     else
       puts "#{name} total is: #{total}"
     end
@@ -96,6 +91,7 @@ class Hand
 
   def who_wins?(player_hand)
     if self >= player_hand
+      puts
       puts "Dealer Wins :("
     else
       puts
@@ -104,6 +100,7 @@ class Hand
   end
 
   ### Fix scoring to get best potential hand
+  # This should probably be in my card class not my hand class??????
   def score(hand)
     if hand == []
       return 0
